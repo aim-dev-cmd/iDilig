@@ -1,0 +1,17 @@
+Visit our website at idilig.elementfx.com.
+
+Welcome to iDilig, an innovative website designed to revolutionize the way we monitor soil conditions for optimal pechay (Chinese cabbage) cultivation. Established in 2023, iDilig aims to empower farmers and gardening enthusiasts by providing real-time insights into soil moisture and temperature, essential factors for successful pechay cultivation. By harnessing the power of technology, iDilig offers a user-friendly platform that enhances precision farming and contributes to higher yields.
+
+Description: iDilig takes pride in its user-centric approach, prioritizing simplicity and functionality. To access the wealth of information and tools available on the platform, users are required to register first. This ensures a personalized experience tailored to each individual's needs. Once registered, users gain exclusive access to the monitoring features that play a crucial role in optimizing pechay growth.
+
+The website's core functionality revolves around monitoring soil moisture and temperature levels. Through a seamless interface, users can view real-time data and historical trends and receive timely alerts, ensuring that the pechay plants are always in the ideal environment for growth. iDilig leverages cutting-edge technology to collect and analyze data, providing users with actionable insights to make informed decisions about irrigation and cultivation practices.
+
+Key Features:
+
+User Registration
+Real-Time Monitoring
+Historical Trends
+Alert System
+Intuitive Dashboard
+
+Deployed in Biñan City Organik Farm in Biñan Laguna.

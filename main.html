@@ -1,0 +1,301 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>iDilig: Automatic Watering System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
+  <style>
+    body,
+    p {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      text-align: center;
+      color: white;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      padding: 20px 10px;
+    }
+
+    nav .menu-img {
+      width: 25px;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Poppins', sans-serif;
+      font-size: 50px;
+      margin: 0 auto;
+      cursor: pointer;
+      padding: 10px;
+      border: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      margin-right: 20px;
+    }
+
+    nav .logo {
+      width: 160px;
+      cursor: pointer;
+    }
+
+    nav ul {
+      flex: 1;
+      text-align: right;
+      list-style: none;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    nav ul li a {
+      font-family: 'Poppins', Arial, sans-serif;
+      font-size: 18px;
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: green;
+    }
+
+    #hero {
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 100px;
+      color: white;
+    }
+
+    #hero .hero-content {
+      text-align: center;
+    }
+
+    #hero h2 {
+      font-size: 40px;
+    }
+
+    #hero p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: white;
+      color: black;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: white;
+    }
+
+    #contact {
+      background-color: #000;
+      padding: 40px 0;
+      text-align: center;
+      color: white;
+    }
+
+    #contact h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .social-media {
+      margin-top: 20px;
+    }
+
+    .social-media a {
+      display: inline-block;
+      margin-right: 10px;
+      font-size: 50px;
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .social-media a:hover {
+      color: green;
+    }
+
+    footer {
+      background-color: black;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    footer p {
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      color: white;
+    }
+
+    .container h3 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      
+    }
+
+    .container form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container input {
+      margin: 10px 0;
+      padding: 10px;
+      width: 300px;
+      font-size: 16px;
+      border: none;
+      border-bottom: 2px solid white;
+      background-color: transparent;
+      color: white;
+    }
+
+    .container button {
+      background-color: white;
+      color: black;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: Poppins;
+      transition: background-color 0.3s ease;
+    }
+
+    .container button:hover {
+      background-color: white;
+      
+    }
+
+    .signup-link {
+      margin-top: 20px;
+    }
+
+    .signup-link a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .signup-link a:hover {
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+  
+
+  <div class="logo-container">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <h1 class="logo">iDilig: Development of an Automatic Watering System<br> and Soil Moisture Level Detection</h1>
+  </div>
+
+
+  <div class="container">
+    <h3>Plantito/Plantita<br>Log In!</h3>
+    <form id="loginForm">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <div class="signup-link">
+      <a href="registration.html">New user? Register here</a>
+    </div>
+  </div>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <div class="social-media">
+      <a href="mailto:idilig2023@gmail.com" target="_blank" rel="noopener noreferrer">
+        <i class="fa fa-envelope"></i>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=100094040184609" target="_blank" rel="noopener noreferrer">
+        <i class="fa fa-facebook"></i>
+      </a>
+      <a href="https://www.instagram.com/your-instagram-account" target="_blank" rel="noopener noreferrer">
+        <i class="fa fa-instagram"></i>
+      </a>
+      <a href="https://twitter.com/idilig2023" target="_blank" rel="noopener noreferrer">
+        <i class="fa fa-twitter"></i>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2023 iDilig. All rights reserved.</p>
+  </footer>
+
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      // Retrieve stored accounts data from local storage
+      var storedAccounts = JSON.parse(localStorage.getItem("accounts")) || [];
+
+      // Retrieve entered username and password from the login form
+      var username = this.username.value;
+      var password = this.password.value;
+
+      // Find the account with the entered username and password
+      var account = storedAccounts.find(function (acc) {
+        return acc.username === username && acc.password === password;
+      });
+
+      if (account) {
+        // Clear the form fields
+        this.reset();
+
+        // Display "Access Granted" message and buttons
+        var container = document.getElementsByClassName("container")[0];
+        container.innerHTML = `
+          <h3>Access Granted!</h3>
+         
+        `;
+
+        // Redirect to the dashboard after 2 seconds
+        setTimeout(function () {
+          window.location.href = "carousel.html";
+        }, 2000);
+      } else {
+        alert("Invalid username or password. Please try again.");
+      }
+    });
+  </script>
+</body>
+
+</html>
