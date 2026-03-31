@@ -44,3 +44,5 @@ Contact
 For inquiries or support, please fill out the contact form.
 
 Empowering farmers through smart soil monitoring.
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c54f2a4b-e6e7-440f-8511-808adf82bf52/deploy-status)](https://app.netlify.com/projects/idilig/deploys)
