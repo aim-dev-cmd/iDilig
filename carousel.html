@@ -1,93 +1,368 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <title>iDilig: Automatic Watering System</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iDilig - Smart Soil Monitoring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
-  <link rel="stylesheet" href="carousel.css">
-  
+  <style>
+    *, *:before, *:after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #05BDBA;
+      --primary-dark: #049e9b;
+      --primary-glow: rgba(5, 189, 186, .3);
+      --bg: #000000;
+      --bg-card: #0a0a0a;
+      --bg-card-hover: #111111;
+      --text: #e8e8e8;
+      --text-light: #888888;
+      --text-muted: #555555;
+      --border: #1a1a1a;
+      --border-hover: #2a2a2a;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow: 0 4px 24px rgba(0, 0, 0, .4);
+      --shadow-glow: 0 0 30px rgba(5, 189, 186, .15);
+      --transition: all .3s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      letter-spacing: -.5px;
+    }
+
+    .navbar-brand:hover {
+      text-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .navbar-logo {
+      height: 36px;
+      width: auto;
+      border-radius: 8px;
+    }
+
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .navbar-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      padding: .5rem 1rem;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+
+    .navbar-links a:hover {
+      color: var(--primary);
+      background: rgba(5, 189, 186, 0.08);
+    }
+
+    .navbar-links a.active {
+      color: var(--primary);
+      background: rgba(5, 189, 186, 0.1);
+    }
+
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      position: relative;
+    }
+
+    .hero:before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--primary-glow), transparent 70%);
+      pointer-events: none;
+      opacity: .4;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: .5rem;
+      letter-spacing: -1px;
+      position: relative;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: .5rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto 1rem;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem auto;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .carousel-inner {
+      display: flex;
+      justify-content: center;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .carousel-item {
+      text-align: center;
+      display: none;
+      width: 100%;
+    }
+
+    .carousel-item.active {
+      display: block;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .text-container {
+      padding: 1.25rem 1.5rem;
+      text-align: center;
+    }
+
+    .text-container p {
+      font-size: .95rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    #contact {
+      margin-top: 3rem;
+      text-align: center;
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    #contact h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .social-media {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .social-media a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 1.25rem;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .social-media a:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: .85rem;
+    }
+
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        padding: 1rem;
+      }
+
+      .hero {
+        padding: 2rem 1rem 1rem;
+      }
+
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+
+      .navbar {
+        padding: 1rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <header>
-    <div class="first">
-      <nav>
-        <ul>
-          <li><a href="carousel.html">Home</a></li>
-          <li><a href="history.html">History</a></li>
-          <li><a href="index.html">Accounts</a></li>
-        </ul>
-      </nav>
+  <script>
+    // Redirect to login if not authenticated
+    if (sessionStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "main.html";
+    }
+  </script>
+
+  <nav class="navbar">
+    <a href="carousel.html" class="navbar-brand">
+      <img src="images/logo.png" alt="iDilig" class="navbar-logo">
+      iDilig
+    </a>
+    <div class="navbar-links">
+      <a href="carousel.html" class="active">Home</a>
+      <a href="history.html">History</a>
+      <a href="#" onclick="sessionStorage.clear(); window.location.href='main.html'; return false;">Logout</a>
     </div>
-  </header>
+  </nav>
 
-  <div class="logo-container">
-    <img src="images/logo.png" alt="Logo" class="logo-img">
-    <h1 class="logo">iDilig: Development of an Automatic Watering System<br> and Soil Moisture Level Detection</h1>
-  </div>
-
-  <section id="hero">
-    <div class="hero-content">
+  <div class="main-content">
+    <section class="hero">
+      <p class="hero-subtitle">Smart Soil Monitoring</p>
+      <h1>Automatic Watering System &<br><span>Soil Moisture Detection</span></h1>
       <p>Monitor and control the watering of "Pechay" plants at Binan City Organik Farm using IoT technology.</p>
+    </section>
+
+    <div class="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="images/nature.png" alt="Image 1">
+          <div class="text-container">
+            <p>Nature merging with technology signifies a harmonious integration where the organic world and technological advancements coalesce to enhance sustainability and efficiency.</p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img src="images/IoT.png" alt="Image 2">
+          <div class="text-container">
+            <p>The benefits of IoT manifest in empowering systems with real-time data and control, revolutionizing how we interact with and manage the environment.</p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img src="images/smart watering.png" alt="Image 3">
+          <div class="text-container">
+            <p>Watering plants becomes a precision-driven process, optimizing hydration levels and fostering healthier growth through intelligent, automated systems.</p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img src="images/watering plant.png" alt="Image 4">
+          <div class="text-container">
+            <p>Smart watering technologies employ data-driven insights and automation to ensure efficient water usage, promoting environmental conservation and plant well-being.</p>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img src="images/arduino.png" alt="Image 5">
+          <div class="text-container">
+            <p>Arduino, a versatile open-source platform, serves as the backbone for innovative projects, enabling seamless integration of sensors for sustainable solutions.</p>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
 
-  <div class="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="images/nature.png" alt="Image 1">
-        <div class="text-container">
-          <p>Nature merging with technology signifies a harmonious integration where the organic world and technological advancements coalesce to enhance sustainability and efficiency.</p>
-        </div>
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <div class="social-media">
+        <a href="mailto:idilig2023@gmail.com" target="_blank" rel="noopener noreferrer">
+          <i class="fa fa-envelope"></i>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=100094040184609" target="_blank" rel="noopener noreferrer">
+          <i class="fa fa-facebook"></i>
+        </a>
+        <a href="https://www.instagram.com/your-instagram-account" target="_blank" rel="noopener noreferrer">
+          <i class="fa fa-instagram"></i>
+        </a>
+        <a href="https://twitter.com/idilig2023" target="_blank" rel="noopener noreferrer">
+          <i class="fa fa-twitter"></i>
+        </a>
       </div>
-
-      <div class="carousel-item">
-        <img src="images/IoT.png" alt="Image 2"><br><br>
-        <div class="text-container">
-          <p>The benefits of IoT manifest in empowering systems with real-time data and control, revolutionizing how we interact with and manage the environment. </p>
-        </div>
-      </div>
-
-      <div class="carousel-item">
-        <img src="images/smart watering.png" alt="Image 3">
-        <div class="text-container">
-          <p>Watering plants becomes a precision-driven process, optimizing hydration levels and fostering healthier growth through intelligent, automated systems. </p>
-        </div>
-      </div>
-
-      <div class="carousel-item">
-        <img src="images/watering plant.png" alt="Image 4">
-          <p> Smart watering technologies employ data-driven insights and automation to ensure efficient water usage, promoting environmental conservation and plant well-being.</p>
-        </div>
-      </div>
-
-      <div class="carousel-item">
-        <img src="images/arduino.png" alt="Image 5">
-        <div class="text-container">
-          <p>Arduino, a versatile open-source platform, serves as the backbone for innovative projects, enabling seamless integration of sensors for sustainable solutions.</p>
-        </div>
-      </div>
-    </div>
+    </section>
   </div>
-
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <div class="social-media">
-      <a href="mailto:idilig2023@gmail.com" target="_blank" rel="noopener noreferrer">
-        <i class="fa fa-envelope"></i>
-      </a>
-      <a href="https://www.facebook.com/profile.php?id=100094040184609" target="_blank" rel="noopener noreferrer">
-        <i class="fa fa-facebook"></i>
-      </a>
-      <a href="https://www.instagram.com/your-instagram-account" target="_blank" rel="noopener noreferrer">
-        <i class="fa fa-instagram"></i>
-      </a>
-      <a href="https://twitter.com/idilig2023" target="_blank" rel="noopener noreferrer">
-        <i class="fa fa-twitter"></i>
-      </a>
-    </div>
-  </section>
 
   <footer>
     <p>&copy; 2023 iDilig. All rights reserved.</p>

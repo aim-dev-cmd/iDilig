@@ -1,266 +1,340 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <title>iDilig: Automatic Watering System</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iDilig - Smart Soil Monitoring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
   <style>
-    body,
-    p {
-      font-family: 'Poppins', sans-serif;
+    *, *:before, *:after {
       margin: 0;
       padding: 0;
-      background-color: #000;
-      text-align: center;
-      color: white;
+      box-sizing: border-box;
     }
 
-    nav {
+    :root {
+      --primary: #05BDBA;
+      --primary-dark: #049e9b;
+      --primary-glow: rgba(5, 189, 186, .3);
+      --bg: #000000;
+      --bg-card: #0a0a0a;
+      --bg-card-hover: #111111;
+      --text: #e8e8e8;
+      --text-light: #888888;
+      --text-muted: #555555;
+      --border: #1a1a1a;
+      --border-hover: #2a2a2a;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow: 0 4px 24px rgba(0, 0, 0, .4);
+      --shadow-glow: 0 0 30px rgba(5, 189, 186, .15);
+      --transition: all .3s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .navbar {
       display: flex;
       align-items: center;
-      padding: 20px 10px;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    nav .menu-img {
-      width: 25px;
-      margin-right: 20px;
-      cursor: pointer;
-    }
-
-    .logo-container {
+    .navbar-brand {
       display: flex;
       align-items: center;
+      gap: .75rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      letter-spacing: -.5px;
     }
 
-    .logo {
-      font-family: 'Poppins', sans-serif;
-      font-size: 50px;
+    .navbar-brand:hover {
+      text-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .navbar-logo {
+      height: 36px;
+      width: auto;
+      border-radius: 8px;
+    }
+
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .navbar-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      padding: .5rem 1rem;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+
+    .navbar-links a:hover {
+      color: var(--primary);
+      background: rgba(5, 189, 186, 0.08);
+    }
+
+    .navbar-links a.active {
+      color: var(--primary);
+      background: rgba(5, 189, 186, 0.1);
+    }
+
+    .main-content {
+      max-width: 1200px;
       margin: 0 auto;
-      cursor: pointer;
-      padding: 10px;
-      border: none;
-      display: flex;
-      align-items: center;
+      padding: 2rem;
     }
 
-    .logo img {
-      margin-right: 20px;
-    }
-
-    nav .logo {
-      width: 160px;
-      cursor: pointer;
-    }
-
-    nav ul {
-      flex: 1;
-      text-align: right;
-      list-style: none;
-    }
-
-    nav ul li {
-      display: inline-block;
-      margin-left: 10px;
-    }
-
-    nav ul li a {
-      font-family: 'Poppins', Arial, sans-serif;
-      font-size: 18px;
-      color: white;
-      text-decoration: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-
-    nav ul li a:hover {
-      background-color: green;
-    }
-
-    #hero {
-      font-family: 'Poppins', sans-serif;
-      margin-bottom: 100px;
-      color: white;
-    }
-
-    #hero .hero-content {
+    .hero {
       text-align: center;
-    }
-
-    #hero h2 {
-      font-size: 40px;
-    }
-
-    #hero p {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-
-    .cta-button {
-      display: inline-block;
-      background-color: white;
-      color: black;
-      font-weight: bold;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .cta-button:hover {
-      background-color: white;
-    }
-
-    .carousel {
+      padding: 3rem 1rem 2rem;
       position: relative;
-      width: 100%;
-      max-width: 800px; /* Adjust the width as needed */
-      margin: 0 auto;
+    }
+
+    .hero:before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--primary-glow), transparent 70%);
+      pointer-events: none;
+      opacity: .4;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: .5rem;
+      letter-spacing: -1px;
+      position: relative;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: .5rem;
+    }
+
+    .content-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      margin: 2rem auto;
+      max-width: 900px;
+      position: relative;
       overflow: hidden;
     }
 
-    .carousel-inner {
-      display: flex;
-      transition: opacity 2s ease-in-out; /* Adjust the transition duration as needed */
-    }
-
-    .carousel-item {
-      display: none;
-    }
-
-    .carousel-item.active {
-      display: block;
-    }
-
-    .carousel-item img {
-      width: 100%;
-      height: auto;
-    }
-
-    .text-container {
+    .content-card:before {
+      content: "";
       position: absolute;
-      bottom: 20px; /* Adjust the distance from the bottom as needed */
-      width: 100%;
-      text-align: center;
-      color: white;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
     }
 
-    .text-container p {
-      font-size: 18px;
+    .content-card h2 {
+      color: var(--primary);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .content-card p {
+      color: var(--text-light);
+      font-size: .95rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    .content-card p:last-child {
+      margin-bottom: 0;
     }
 
     #contact {
-      background-color: #000;
-      padding: 40px 0;
+      margin-top: 3rem;
       text-align: center;
-      color: white;
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
     }
 
     #contact h2 {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text);
     }
 
     .social-media {
-      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
     }
 
     .social-media a {
-      display: inline-block;
-      margin-right: 10px;
-      font-size: 50px;
-      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 1.25rem;
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: var(--transition);
     }
 
     .social-media a:hover {
-      color: green;
-    }
-
-    .container {
-      border: 5px solid white;
-      padding: 20px;
-      margin: 20px;
+      color: var(--primary);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-2px);
     }
 
     footer {
-      background-color: black;
-      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0;
       text-align: center;
     }
 
     footer p {
-      font-family: 'Poppins', sans-serif;
-      color: white;
-      font-size: 14px;
-      margin: 0;
+      color: var(--text-muted);
+      font-size: .85rem;
+    }
+
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        padding: 1rem;
+      }
+
+      .hero {
+        padding: 2rem 1rem 1rem;
+      }
+
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+
+      .content-card {
+        padding: 1.5rem;
+      }
+
+      .navbar {
+        padding: 1rem;
+      }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="first">
-      <nav>
-        <ul>
-          <li><a href="carousel.html">Home</a></li>
-          <li><a href="history.html">History</a></li>
-          <li><a href="index.html">Accounts</a></li>
-        </ul>
-      </nav>
+  <script>
+    // Redirect to login if not authenticated
+    if (sessionStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "main.html";
+    }
+  </script>
+
+  <nav class="navbar">
+    <a href="carousel.html" class="navbar-brand">
+      <img src="images/logo.png" alt="iDilig" class="navbar-logo">
+      iDilig
+    </a>
+    <div class="navbar-links">
+      <a href="carousel.html">Home</a>
+      <a href="history.html" class="active">History</a>
+      <a href="#" onclick="sessionStorage.clear(); window.location.href='main.html'; return false;">Logout</a>
     </div>
-  </header>
+  </nav>
 
-  <div class="logo-container">
-    <img src="images/logo.png" alt="Logo" class="logo-img">
-    <h1 class="logo">iDilig: Development of an Automatic Watering System<br> and Soil Moisture Level Detection</h1>
-  </div>
+  <div class="main-content">
+    <section class="hero">
+      <p class="hero-subtitle">Smart Soil Monitoring</p>
+      <h1>Automatic Watering System &<br><span>Soil Moisture Detection</span></h1>
+    </section>
 
-  <div class="container">
-    <p>Welcome to iDilig: Cultivating Excellence in Pechay Farming</p><br>
+    <div class="content-card">
+      <h2>Welcome to iDilig: Cultivating Excellence in Pechay Farming</h2>
 
-    <p>Established in 2023 at the Biñan City Organik Farm in Biñan, Laguna, Philippines, iDilig stands as a revolutionary platform reshaping the landscape of pechay (Chinese cabbage) cultivation. Our mission is to empower farmers and gardening enthusiasts by providing real-time insights into soil moisture and temperature, vital elements for successful crop growth. </p><br>
+      <p>Established in 2023 at the Binan City Organik Farm in Binan, Laguna, Philippines, iDilig stands as a revolutionary platform reshaping the landscape of pechay (Chinese cabbage) cultivation. Our mission is to empower farmers and gardening enthusiasts by providing real-time insights into soil moisture and temperature, vital elements for successful crop growth.</p>
 
-    <p>At iDilig, simplicity and functionality are paramount. To unlock the full potential of our platform, users are invited to register, ensuring a personalized experience tailored to their unique needs. Once registered, users gain exclusive access to a suite of monitoring features crucial for optimizing pechay growth.</p><br>
+      <p>At iDilig, simplicity and functionality are paramount. To unlock the full potential of our platform, users are invited to register, ensuring a personalized experience tailored to their unique needs. Once registered, users gain exclusive access to a suite of monitoring features crucial for optimizing pechay growth.</p>
 
-    <p>Our core functionality centers around the meticulous observation of soil moisture and temperature levels. Through an intuitive interface, users can access real-time data, review historical trends, and receive timely alerts. This commitment to up-to-the-minute information guarantees that pechay plants are consistently nurtured in the ideal environment for optimal growth.</p><br>
+      <p>Our core functionality centers around the meticulous observation of soil moisture and temperature levels. Through an intuitive interface, users can access real-time data, review historical trends, and receive timely alerts. This commitment to up-to-the-minute information guarantees that pechay plants are consistently nurtured in the ideal environment for optimal growth.</p>
 
-    <p>Leveraging cutting-edge technology, iDilig collects and analyzes data with precision, providing users with actionable insights to make informed decisions about irrigation and cultivation practices. This user-centric approach and integration of technology ensure that iDilig is not just a platform but a partner in the journey towards precision farming and abundant harvests.</p><br>
+      <p>Leveraging cutting-edge technology, iDilig collects and analyzes data with precision, providing users with actionable insights to make informed decisions about irrigation and cultivation practices. This user-centric approach and integration of technology ensure that iDilig is not just a platform but a partner in the journey towards precision farming and abundant harvests.</p>
 
-    <p>Embark on a journey where technology meets cultivation excellence. Join us at iDilig, where innovation and agriculture converge for a brighter, more prosperous future in farming.</p><br>
-  </div>
-
-  <div class="carousel">
-    <div class="carousel-inner">
-      <!-- ... (your carousel items) ... -->
+      <p>Embark on a journey where technology meets cultivation excellence. Join us at iDilig, where innovation and agriculture converge for a brighter, more prosperous future in farming.</p>
     </div>
-  </div>
 
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <div class="social-media">
-      <a href="mailto:idilig2023@gmail.com" target="_blank" rel="noopener noreferrer">
-        <i class="fa fa-envelope"></i>
-      </a>
-      <a href="https://www.facebook.com/profile.php?id=100094040184609" target="_blank" rel="noopener noreferrer">
-        <i class="fa fa-facebook"></i>
-      </a>
-      <a href="https://www.instagram.com/your-instagram-account" target="_blank" rel="noopener noreferrer">
-        <i class="fa fa-instagram"></i>
-      </a>
-      <a href="https://twitter.com/idilig2023" target="_blank" rel="noopener noreferrer">
-        <i class="fa fa-twitter"></i>
-      </a>
-    </div>
-  </section>
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <div class="social-media">
+        <a href="mailto:idilig2023@gmail.com" target="_blank" rel="noopener noreferrer">
+          <i class="fa fa-envelope"></i>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=100094040184609" target="_blank" rel="noopener noreferrer">
+          <i class="fa fa-facebook"></i>
+        </a>
+        <a href="https://www.instagram.com/your-instagram-account" target="_blank" rel="noopener noreferrer">
+          <i class="fa fa-instagram"></i>
+        </a>
+        <a href="https://twitter.com/idilig2023" target="_blank" rel="noopener noreferrer">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </div>
+    </section>
+  </div>
 
   <footer>
     <p>&copy; 2023 iDilig. All rights reserved.</p>
   </footer>
-
 </body>
 
 </html>
