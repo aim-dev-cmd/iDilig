@@ -1,0 +1,36 @@
+# ======================
+# Build Settings
+# ======================
+[build]
+  # Static HTML site — no build step required
+  command = "echo 'No build required'"
+  publish = "."
+
+# ======================
+# Deployment Enforcement
+# ======================
+# Only allow production deploys from the main branch
+[build.processing]
+  skip_processing = false
+
+# ======================
+# Preview Settings
+# ======================
+# Enable deploy previews for pull requests only (no branch deploys)
+[context.deploy-preview]
+  command = "echo 'No build required'"
+  publish = "."
+
+# Disable branch deploys (no persistent preview servers)
+[context.branch-deploy]
+  command = "echo 'Skipping branch deploy'"
+
+# ======================
+# Headers (security best practices)
+# ======================
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
