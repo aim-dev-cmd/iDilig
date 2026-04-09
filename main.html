@@ -1,298 +1,365 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <title>iDilig: Automatic Watering System</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&display=swap">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iDilig - Smart Soil Monitoring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    body,
-    p {
-      font-family: 'Poppins', sans-serif;
+    *, *:before, *:after {
       margin: 0;
       padding: 0;
-      background-color: #000;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #05BDBA;
+      --primary-dark: #049e9b;
+      --primary-glow: rgba(5, 189, 186, .3);
+      --bg: #000000;
+      --bg-card: #0a0a0a;
+      --bg-input: #0d0d0d;
+      --text: #e8e8e8;
+      --text-light: #888888;
+      --text-muted: #555555;
+      --error: #ff4757;
+      --error-bg: rgba(255, 71, 87, .1);
+      --border: #1a1a1a;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow: 0 4px 24px rgba(0, 0, 0, .4);
+      --shadow-glow: 0 0 30px rgba(5, 189, 186, .15);
+      --transition: all .3s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      letter-spacing: -.5px;
+    }
+
+    .navbar-brand:hover {
+      text-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .navbar-logo {
+      height: 36px;
+      width: auto;
+      border-radius: 8px;
+    }
+
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .navbar-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: .9rem;
+      padding: .5rem 1rem;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+
+    .navbar-links a:hover {
+      color: var(--primary);
+      background: rgba(5, 189, 186, 0.08);
+    }
+
+    .auth-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 80px);
+      padding: 2rem;
+    }
+
+    .auth-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      animation: fadeSlideUp .5s ease;
+    }
+
+    .auth-card:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    }
+
+    .auth-card-logo {
+      display: block;
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 1rem;
+      border-radius: 14px;
+    }
+
+    .auth-card h2 {
       text-align: center;
-      color: white;
+      margin-bottom: .25rem;
+      color: var(--text);
+      font-size: 1.5rem;
+      font-weight: 700;
     }
 
-    nav {
-      display: flex;
-      align-items: center;
-      padding: 20px 10px;
+    .auth-card-subtitle {
+      text-align: center;
+      color: var(--text-light);
+      font-size: .9rem;
+      margin-bottom: 1.5rem;
     }
 
-    nav .menu-img {
-      width: 25px;
-      margin-right: 20px;
-      cursor: pointer;
+    .form-group {
+      margin-bottom: 1.15rem;
     }
 
-    .logo-container {
-      display: flex;
-      align-items: center;
+    .form-group label {
+      display: block;
+      margin-bottom: .4rem;
+      font-weight: 500;
+      font-size: .85rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: .5px;
     }
 
-    .logo {
+    .form-group input {
+      width: 100%;
+      padding: .75rem 1rem;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
       font-family: 'Poppins', sans-serif;
-      font-size: 50px;
-      margin: 0 auto;
-      cursor: pointer;
-      padding: 10px;
+      font-size: .95rem;
+      color: var(--text);
+      transition: var(--transition);
+    }
+
+    .form-group input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: .65rem 1.6rem;
       border: none;
-      display: flex;
-      align-items: center;
-    }
-
-    .logo img {
-      margin-right: 20px;
-    }
-
-    nav .logo {
-      width: 160px;
-      cursor: pointer;
-    }
-
-    nav ul {
-      flex: 1;
-      text-align: right;
-      list-style: none;
-    }
-
-    nav ul li {
-      display: inline-block;
-      margin-left: 10px;
-    }
-
-    nav ul li a {
-      font-family: 'Poppins', Arial, sans-serif;
-      font-size: 18px;
-      color: white;
-      text-decoration: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-
-    nav ul li a:hover {
-      background-color: green;
-    }
-
-    #hero {
+      border-radius: var(--radius-sm);
       font-family: 'Poppins', sans-serif;
-      margin-bottom: 100px;
-      color: white;
-    }
-
-    #hero .hero-content {
-      text-align: center;
-    }
-
-    #hero h2 {
-      font-size: 40px;
-    }
-
-    #hero p {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-
-    .cta-button {
-      display: inline-block;
-      background-color: white;
-      color: black;
-      font-weight: bold;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .cta-button:hover {
-      background-color: white;
-    }
-
-    #contact {
-      background-color: #000;
-      padding: 40px 0;
-      text-align: center;
-      color: white;
-    }
-
-    #contact h2 {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    .social-media {
-      margin-top: 20px;
-    }
-
-    .social-media a {
-      display: inline-block;
-      margin-right: 10px;
-      font-size: 50px;
-      color: white;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .social-media a:hover {
-      color: green;
-    }
-
-    footer {
-      background-color: black;
-      padding: 20px 0;
-      text-align: center;
-    }
-
-    footer p {
-      font-family: 'Poppins', sans-serif;
-      color: white;
-      font-size: 14px;
-      margin: 0;
-    }
-
-    .container {
-      text-align: center;
-      color: white;
-    }
-
-    .container h3 {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      
-    }
-
-    .container form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .container input {
-      margin: 10px 0;
-      padding: 10px;
-      width: 300px;
-      font-size: 16px;
-      border: none;
-      border-bottom: 2px solid white;
-      background-color: transparent;
-      color: white;
-    }
-
-    .container button {
-      background-color: white;
-      color: black;
-      font-weight: bold;
-      padding: 10px 20px;
-      border-radius: 5px;
+      font-size: .9rem;
+      font-weight: 600;
       cursor: pointer;
-      font-family: Poppins;
-      transition: background-color 0.3s ease;
-    }
-
-    .container button:hover {
-      background-color: white;
-      
-    }
-
-    .signup-link {
-      margin-top: 20px;
-    }
-
-    .signup-link a {
-      color: white;
       text-decoration: none;
-      transition: color 0.3s ease;
+      text-align: center;
+      transition: var(--transition);
+      gap: .5rem;
     }
 
-    .signup-link a:hover {
-      color: green;
+    .btn-primary {
+      background: var(--primary);
+      color: #000;
+      width: 100%;
+      margin-top: .75rem;
+      padding: .8rem;
+      font-size: 1rem;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 0 20px var(--primary-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .auth-link {
+      text-align: center;
+      margin-top: 1.25rem;
+      font-size: .9rem;
+      color: var(--text-light);
+    }
+
+    .auth-link a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .auth-link a:hover {
+      text-decoration: underline;
+    }
+
+    .error-message {
+      background: var(--error-bg);
+      color: var(--error);
+      padding: .7rem 1rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1rem;
+      font-size: .85rem;
+      border: 1px solid rgba(255, 71, 87, .2);
+      animation: shake .4s ease;
+    }
+
+    .success-message {
+      background: rgba(46, 213, 115, 0.1);
+      color: #2ed573;
+      padding: .7rem 1rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1rem;
+      font-size: .85rem;
+      border: 1px solid rgba(46, 213, 115, .2);
+      text-align: center;
+    }
+
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shake {
+      0%, to { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+
+    @media (max-width: 768px) {
+      .auth-card {
+        padding: 1.75rem;
+      }
+
+      .navbar {
+        padding: 1rem;
+      }
     }
   </style>
 </head>
 
 <body>
-  
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <img src="images/logo.png" alt="iDilig" class="navbar-logo">
+      iDilig
+    </a>
+    <div class="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="main.html">Login</a>
+      <a href="registration.html">Register</a>
+    </div>
+  </nav>
 
-  <div class="logo-container">
-    <img src="images/logo.png" alt="Logo" class="logo-img">
-    <h1 class="logo">iDilig: Development of an Automatic Watering System<br> and Soil Moisture Level Detection</h1>
-  </div>
-
-
-  <div class="container">
-    <h3>Plantito/Plantita<br>Log In!</h3>
-    <form id="loginForm">
-      <input type="text" name="username" placeholder="Username" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-    <div class="signup-link">
-      <a href="registration.html">New user? Register here</a>
+  <div class="auth-page">
+    <div class="auth-card">
+      <img src="images/logo.png" alt="iDilig" class="auth-card-logo">
+      <h2>Welcome Back</h2>
+      <p class="auth-card-subtitle">Sign in to your iDilig dashboard</p>
+      <div id="errorMsg"></div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" placeholder="Enter your username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+      </form>
+      <p class="auth-link">Don't have an account? <a href="registration.html">Create one</a></p>
     </div>
   </div>
-
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <div class="social-media">
-      <a href="mailto:idilig2023@gmail.com" target="_blank" rel="noopener noreferrer">
-        <i class="fa fa-envelope"></i>
-      </a>
-      <a href="https://www.facebook.com/profile.php?id=100094040184609" target="_blank" rel="noopener noreferrer">
-        <i class="fa fa-facebook"></i>
-      </a>
-      <a href="https://www.instagram.com/your-instagram-account" target="_blank" rel="noopener noreferrer">
-        <i class="fa fa-instagram"></i>
-      </a>
-      <a href="https://twitter.com/idilig2023" target="_blank" rel="noopener noreferrer">
-        <i class="fa fa-twitter"></i>
-      </a>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2023 iDilig. All rights reserved.</p>
-  </footer>
-
 
   <script>
     document.getElementById("loginForm").addEventListener("submit", function (event) {
       event.preventDefault();
 
-      // Retrieve stored accounts data from local storage
       var storedAccounts = JSON.parse(localStorage.getItem("accounts")) || [];
-
-      // Retrieve entered username and password from the login form
       var username = this.username.value;
       var password = this.password.value;
 
-      // Find the account with the entered username and password
       var account = storedAccounts.find(function (acc) {
         return acc.username === username && acc.password === password;
       });
 
+      var errorDiv = document.getElementById("errorMsg");
+
       if (account) {
-        // Clear the form fields
-        this.reset();
+        // Set logged-in flag
+        sessionStorage.setItem("isLoggedIn", "true");
+        sessionStorage.setItem("loggedInUser", username);
 
-        // Display "Access Granted" message and buttons
-        var container = document.getElementsByClassName("container")[0];
-        container.innerHTML = `
-          <h3>Access Granted!</h3>
-         
-        `;
+        errorDiv.innerHTML = '';
+        var card = document.querySelector(".auth-card");
+        var form = document.getElementById("loginForm");
+        var subtitle = document.querySelector(".auth-card-subtitle");
+        var authLink = document.querySelector(".auth-link");
+        form.style.display = "none";
+        authLink.style.display = "none";
+        subtitle.style.display = "none";
+        card.querySelector("h2").textContent = "Access Granted!";
+        card.insertAdjacentHTML("beforeend", '<div class="success-message">Redirecting to dashboard...</div>');
 
-        // Redirect to the dashboard after 2 seconds
         setTimeout(function () {
           window.location.href = "carousel.html";
-        }, 2000);
+        }, 1500);
       } else {
-        alert("Invalid username or password. Please try again.");
+        errorDiv.innerHTML = '<div class="error-message">Invalid username or password. Please try again.</div>';
       }
     });
   </script>
