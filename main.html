@@ -326,40 +326,52 @@
   </div>
 
   <script>
-    document.getElementById("loginForm").addEventListener("submit", function (event) {
+    document.getElementById("loginForm").addEventListener("submit", async function (event) {
       event.preventDefault();
 
-      var storedAccounts = JSON.parse(localStorage.getItem("accounts")) || [];
       var username = this.username.value;
       var password = this.password.value;
-
-      var account = storedAccounts.find(function (acc) {
-        return acc.username === username && acc.password === password;
-      });
-
       var errorDiv = document.getElementById("errorMsg");
+      var submitBtn = this.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Signing In...";
 
-      if (account) {
-        // Set logged-in flag
-        sessionStorage.setItem("isLoggedIn", "true");
-        sessionStorage.setItem("loggedInUser", username);
+      try {
+        var response = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: username, password: password })
+        });
 
-        errorDiv.innerHTML = '';
-        var card = document.querySelector(".auth-card");
-        var form = document.getElementById("loginForm");
-        var subtitle = document.querySelector(".auth-card-subtitle");
-        var authLink = document.querySelector(".auth-link");
-        form.style.display = "none";
-        authLink.style.display = "none";
-        subtitle.style.display = "none";
-        card.querySelector("h2").textContent = "Access Granted!";
-        card.insertAdjacentHTML("beforeend", '<div class="success-message">Redirecting to dashboard...</div>');
+        var data = await response.json();
 
-        setTimeout(function () {
-          window.location.href = "carousel.html";
-        }, 1500);
-      } else {
-        errorDiv.innerHTML = '<div class="error-message">Invalid username or password. Please try again.</div>';
+        if (response.ok) {
+          sessionStorage.setItem("isLoggedIn", "true");
+          sessionStorage.setItem("loggedInUser", data.user.username);
+
+          errorDiv.innerHTML = '';
+          var card = document.querySelector(".auth-card");
+          var form = document.getElementById("loginForm");
+          var subtitle = document.querySelector(".auth-card-subtitle");
+          var authLink = document.querySelector(".auth-link");
+          form.style.display = "none";
+          authLink.style.display = "none";
+          subtitle.style.display = "none";
+          card.querySelector("h2").textContent = "Access Granted!";
+          card.insertAdjacentHTML("beforeend", '<div class="success-message">Redirecting to dashboard...</div>');
+
+          setTimeout(function () {
+            window.location.href = "carousel.html";
+          }, 1500);
+        } else {
+          errorDiv.innerHTML = '<div class="error-message">' + data.error + '</div>';
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign In";
+        }
+      } catch (err) {
+        errorDiv.innerHTML = '<div class="error-message">Something went wrong. Please try again.</div>';
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Sign In";
       }
     });
   </script>

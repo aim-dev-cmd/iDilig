@@ -342,8 +342,13 @@
   </div>
 
   <script>
-    document.getElementById("accountForm").addEventListener("submit", function(event) {
+    document.getElementById("accountForm").addEventListener("submit", async function(event) {
       event.preventDefault();
+
+      var errorDiv = document.getElementById("errorMsg");
+      var submitBtn = this.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Creating Account...";
 
       var accountDetails = {
         fname: this.fname.value,
@@ -354,25 +359,30 @@
         phone: this.phone.value
       };
 
-      var storedAccounts = JSON.parse(localStorage.getItem("accounts")) || [];
-      var errorDiv = document.getElementById("errorMsg");
+      try {
+        var response = await fetch("/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(accountDetails)
+        });
 
-      var isUsernameTaken = storedAccounts.some(function(acc) {
-        return acc.username === accountDetails.username;
-      });
+        var data = await response.json();
 
-      if (isUsernameTaken) {
-        errorDiv.innerHTML = '<div class="error-message">Username already taken. Please choose a different username.</div>';
-      } else {
-        storedAccounts.push(accountDetails);
-        localStorage.setItem("accounts", JSON.stringify(storedAccounts));
-
-        errorDiv.innerHTML = '<div class="success-message">Account created successfully! Redirecting...</div>';
-        this.reset();
-
-        setTimeout(function() {
-          window.location.href = "main.html";
-        }, 1500);
+        if (response.ok) {
+          errorDiv.innerHTML = '<div class="success-message">Account created successfully! Redirecting...</div>';
+          this.reset();
+          setTimeout(function() {
+            window.location.href = "main.html";
+          }, 1500);
+        } else {
+          errorDiv.innerHTML = '<div class="error-message">' + data.error + '</div>';
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Create Account";
+        }
+      } catch (err) {
+        errorDiv.innerHTML = '<div class="error-message">Something went wrong. Please try again.</div>';
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Create Account";
       }
     });
   </script>

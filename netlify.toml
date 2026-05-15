@@ -2,9 +2,11 @@
 # Build Settings
 # ======================
 [build]
-  # Static HTML site — no build step required
   command = "echo 'No build required'"
   publish = "."
+
+[functions]
+  directory = "netlify/functions"
 
 # ======================
 # Deployment Enforcement

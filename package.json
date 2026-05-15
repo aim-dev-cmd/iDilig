@@ -1,0 +1,27 @@
+{
+  "name": "repo",
+  "version": "1.0.0",
+  "description": "A smart soil monitoring platform for pechay farming with real-time data, alerts, and analytics.",
+  "main": "carousel.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aim-dev-cmd/iDilig.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aim-dev-cmd/iDilig/issues"
+  },
+  "homepage": "https://github.com/aim-dev-cmd/iDilig#readme",
+  "dependencies": {
+    "@netlify/database": "^1.0.0",
+    "drizzle-orm": "^1.0.0-beta.22"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^1.0.0-beta.22"
+  }
+}
